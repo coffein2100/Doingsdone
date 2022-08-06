@@ -42,6 +42,20 @@ $tasks =[
 ];
 $index = 0;
 $num = count($projects);
+
+function count_project ($tasks, $name_project){
+$sum=0;
+    foreach ($tasks as $key => $val){
+        if ($val['category'] == $name_project ){
+        $sum=array_count_values(array_column($tasks, 'category'))[$name_project];
+
+        return $sum;
+        } else {
+            $sum=0;
+
+        }
+    }return $sum;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -86,9 +100,10 @@ $num = count($projects);
                     <?php while ($index < $num): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?=$projects[$index];?></a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <span class="main-navigation__list-item-count"><?= count_project($tasks, $projects[$index]);?></span>
                         </li>
-                        <?php $index++; ?>
+                        <?php $index++;
+                         ?>
                     <?php endwhile; ?>
                     </ul>
                 </nav>
