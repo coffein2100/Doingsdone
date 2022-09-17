@@ -1,6 +1,5 @@
 <?php
-$index = 0;
-$num = count($projects);
+
 $show_complete_tasks = rand(0, 1);
 ?>
 <section class="content__side">
@@ -8,14 +7,14 @@ $show_complete_tasks = rand(0, 1);
 
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
-                    <?php while ($index < $num): ?>
+                    <?php foreach ($projects as $key => $val): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?=htmlspecialchars($projects[$index]);?></a>
-                            <span class="main-navigation__list-item-count"><?= count_project($tasks, $projects[$index]);?></span>
+                            <a class="main-navigation__list-item-link" href="#"><?=htmlspecialchars($val["name_project"]);?></a>
+                            <span class="main-navigation__list-item-count"><?= count_project($tasks, $val["name_project"]);?></span>
                         </li>
                         <?php $index++;
                          ?>
-                    <?php endwhile; ?>
+                    <?php endforeach; ?>
                     </ul>
                 </nav>
 
@@ -53,27 +52,27 @@ $show_complete_tasks = rand(0, 1);
 
 
                 <?php foreach ($tasks as $key => $val): ?>
-                    <?php if ($val['status']==true and $show_complete_tasks==0): continue ?><?php endif; ?>
-                    <?php $res = get_time_left (htmlspecialchars($val["date_start"]))?>
+                    <?php if ($val['task_status']==true and $show_complete_tasks==0): continue ?><?php endif; ?>
+                    <?php $res = get_time_left (htmlspecialchars($val["date_finish"]))?>
                     <tr class="tasks__item<?php if ($res[0]<= 24) : ?> task--important <?php endif; ?> ">
-                        <td class="task__select  <?php if ($val['status']==true): ?>task--completed"<?php endif; ?>>
+                        <td class="task__select  <?php if ($val['task_status']==true): ?>task--completed"<?php endif; ?>>
                             <label class="checkbox task__checkbox">
-                                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?php if ($val["status"]==true): ?>checked<?php endif; ?>>
-                                <span class="checkbox__text "><?=htmlspecialchars($val["task"]); ?>"</span>
+                                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?php if ($val["task_status"]==true): ?>checked<?php endif; ?>>
+                                <span class="checkbox__text "><?=htmlspecialchars($val["task_name"]); ?>"</span>
                             </label>
                         </td>
 
-                     <!--   <td class="task__file">
-                            <a class="download-link" href="#">Home.psd</a>
-                        </td> -->
+                        <td class="task__file">
+                            <a class="download-link" href="#"><?=htmlspecialchars($val["task_file"]); ?></a>
+                        </td>
 
-                        <td class="task__date"><?=htmlspecialchars($val["date_start"]); ?></td>
+                        <td class="task__date"><?=htmlspecialchars($val["date_finish"]); ?></td>
 
 
                         <td class="task__controls"></td>
                     </tr>
                 <?php endforeach; ?>
-                    <?php if ($show_complete_tasks == 1): ?>
+               <!--     <?php if ($show_complete_tasks == 1): ?>
                     <tr class="tasks__item task task--completed">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
@@ -85,7 +84,7 @@ $show_complete_tasks = rand(0, 1);
 
                         <td class="task__controls"></td>
                     </tr>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                     <!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице-->
                 </table>
             </main>

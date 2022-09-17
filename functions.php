@@ -14,6 +14,7 @@ function count_project ($tasks, $name_project){
         }return $sum;
     }
 
+
 function get_time_left ($date){
     date_default_timezone_set('Europe/Moscow');
     $final_date = date_create($date);
@@ -35,3 +36,4 @@ function get_time_left ($date){
     return 0;
 
 }
+

@@ -13,7 +13,7 @@ CREATE TABLE users (
 CREATE TABLE projects (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name_project VARCHAR(128) NOT NULL,
-  user_id INT,
+  user_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 CREATE TABLE tasks (
