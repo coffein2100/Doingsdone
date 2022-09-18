@@ -1,7 +1,5 @@
 <?php
 // показывать или нет выполненные задачи
-$user_name= 'Илья';
-$index = 0;
 
 ?>
 <!DOCTYPE html>
@@ -30,9 +28,11 @@ $index = 0;
 
                 <div class="main-header__side-item user-menu">
                     <div class="user-menu__data">
-                        <p><?=htmlspecialchars($user_name); ?></p>
-
+                    <?php foreach ($user as $key => $name): ?>
+                        <p><?=htmlspecialchars($name["user_name"]);?></p>
+                        <?php endforeach; ?>
                         <a href="#">Выйти</a>
+
                     </div>
                 </div>
             </div>
