@@ -10,7 +10,7 @@ $show_complete_tasks = rand(0, 1);
                     <?php foreach ($projects as $key => $val): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?=htmlspecialchars($val["name_project"]);?></a>
-                            <span class="main-navigation__list-item-count"><?= count_project($tasks, $val["name_project"]);?></span>
+                            <span class="main-navigation__list-item-count"><?= count_project($tasks, $val["id"]);?></span>
                         </li>
                         <?php $index++;
                          ?>
@@ -66,7 +66,7 @@ $show_complete_tasks = rand(0, 1);
                             <a class="download-link" href="#"><?=htmlspecialchars($val["task_file"]); ?></a>
                         </td>
 
-                        <td class="task__date"><?=htmlspecialchars($val["date_finish"]); ?></td>
+                        <td class="task__date"><?=htmlspecialchars(get_normal_date($val["date_finish"])); ?></td>
 
 
                         <td class="task__controls"></td>

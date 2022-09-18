@@ -3,8 +3,8 @@
 function count_project ($tasks, $name_project){
     $sum=0;
         foreach ($tasks as $key => $val){
-            if ($val['category'] == $name_project ){
-            $sum=array_count_values(array_column($tasks, 'category'))[$name_project];
+            if ($val['project_id'] == $name_project ){
+            $sum=array_count_values(array_column($tasks, 'project_id'))[$name_project];
 
             return $sum;
             } else {
@@ -36,4 +36,8 @@ function get_time_left ($date){
     return 0;
 
 }
-
+function get_normal_date ($date){
+    $middle = strtotime($date);
+    $new_date = date('d.m.Y', $middle);
+    return $new_date;
+}
