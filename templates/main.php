@@ -1,6 +1,5 @@
 <?php
 
-$show_complete_tasks = rand(0, 1);
 ?>
 <section class="content__side">
                 <h2 class="content__side-heading">Проекты</h2>
@@ -8,8 +7,9 @@ $show_complete_tasks = rand(0, 1);
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                     <?php foreach ($projects as $key => $val): ?>
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?=htmlspecialchars($val["name_project"]);?></a>
+                        <li class="main-navigation__list-item<?=$project_id === $val["id"] ? " main-navigation__list-item--active" : "" ?>">
+
+                            <a class="main-navigation__list-item-link" href="/?project_id=<?=$val["id"]?>"><?=htmlspecialchars($val["name_project"]);?></a>
                             <span class="main-navigation__list-item-count"><?= count_project($tasks, $val["id"]);?></span>
                         </li>
                         <?php $index++;
@@ -42,7 +42,7 @@ $show_complete_tasks = rand(0, 1);
                     <label class="checkbox">
                         <!--добавить сюда атрибут "checked", если переменная $show_complete_tasks равна единице-->
 
-                        <input class="checkbox__input visually-hidden show_completed" type="checkbox" <?php if ($show_complete_tasks == 1): ?>checked<?php endif; ?>>
+                        <input class="checkbox__input visually-hidden show_completed" type="checkbox" <?php if ($show_complete_tasks===1): ?> checked <?php endif; ?>>
                         <span class="checkbox__text">Показывать выполненные</span>
 
                     </label>
@@ -52,12 +52,13 @@ $show_complete_tasks = rand(0, 1);
 
 
                 <?php foreach ($tasks as $key => $val): ?>
-                    <?php if ($val['task_status']==true and $show_complete_tasks==0): continue ?><?php endif; ?>
+                    <?php if ($val["task_status"]==0 && !$show_complete_task ||
+                $project_id !== "" && $val["project_id"] !== $project_id): continue ?><?php endif; ?>
                     <?php $res = get_time_left (htmlspecialchars($val["date_finish"]))?>
                     <tr class="tasks__item<?php if ($res[0]<= 24) : ?> task--important <?php endif; ?> ">
-                        <td class="task__select  <?php if ($val['task_status']==true): ?>task--completed"<?php endif; ?>>
+                        <td class="task__select  <?php if ($val["task_status"]==true): ?>task--completed"<?php endif; ?>>
                             <label class="checkbox task__checkbox">
-                                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"<?php if ($val["task_status"]==true): ?>checked<?php endif; ?>>
+                                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" <?php if ($val["task_status"]==true): ?>checked<?php endif; ?>>
                                 <span class="checkbox__text "><?=htmlspecialchars($val["task_name"]); ?>"</span>
                             </label>
                         </td>
