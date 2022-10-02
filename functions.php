@@ -38,6 +38,12 @@ function get_time_left ($date){
 }
 function get_normal_date ($date){
     $middle = strtotime($date);
+    if ($middle!= null){
     $new_date = date('d.m.Y', $middle);
-    return $new_date;
+    return $new_date;}
+}
+function get_tasks ($id){
+    return "SELECT task_name,name_project FROM tasks t
+    JOIN projects p
+    ON t.project_id = p.id WHERE p.id = $id and user_id = 2";
 }
