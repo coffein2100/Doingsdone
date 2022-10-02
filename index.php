@@ -5,11 +5,11 @@ require_once("init.php");
 require_once("functions.php");
 
 $project_id = (string) (filter_input(INPUT_GET, 'project_id', FILTER_SANITIZE_SPECIAL_CHARS) ?? null);
-
+$user_number =2;
 if (!$con) {
     $error = mysqli_connect_error();
 } else {
-    $sql = "SELECT user_id, name_project, id FROM projects WHERE user_id = 1";
+    $sql = "SELECT user_id, name_project, id FROM projects WHERE user_id = $user_number ";
     $result = mysqli_query($con, $sql);
     if ($result) {
         $projects = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -28,7 +28,7 @@ if ($project_id && !in_array($project_id, array_column($projects, "id"))) {
 if (!$con) {
     $error = mysqli_connect_error();
 } else {
-    $sql = "SELECT id,user_name FROM users WHERE id = 1";
+    $sql = "SELECT id,user_name FROM users WHERE id = $user_number ";
     $result = mysqli_query($con, $sql);
     if ($result) {
         $user = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -40,7 +40,7 @@ if (!$con) {
 if (!$con) {
     $error = mysqli_connect_error();
 } else {
-    $sql = "SELECT task_status, task_name, task_file, date_finish, project_id FROM tasks WHERE user_id = 1";
+    $sql = "SELECT task_status, task_name, task_file, date_finish, project_id FROM tasks WHERE user_id = $user_number ";
     $result = mysqli_query($con, $sql);
     if ($result) {
         $tasks = mysqli_fetch_all($result, MYSQLI_ASSOC);

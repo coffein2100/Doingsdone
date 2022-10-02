@@ -23,7 +23,7 @@
             </section>
 
             <main class="content__main">
-                <h2 class="content__main-heading">Список задач</h2>
+                <h2 class="content__main-heading">Список задач </h2>
 
                 <form class="search-form" action="index.php" method="post" autocomplete="off">
                     <input class="search-form__input" type="text" name="" value="" placeholder="Поиск по задачам">
@@ -42,7 +42,7 @@
                     <label class="checkbox">
                         <!--добавить сюда атрибут "checked", если переменная $show_complete_tasks равна единице-->
 
-                        <input class="checkbox__input visually-hidden show_completed" type="checkbox" <?php if ($show_complete_tasks===1): ?> checked <?php endif; ?>>
+                        <input class="checkbox__input visually-hidden show_completed" type="checkbox" <?php if ($show_complete_tasks==1): ?> checked <?php endif; ?>>
                         <span class="checkbox__text">Показывать выполненные</span>
 
                     </label>
@@ -52,13 +52,14 @@
 
 
                 <?php foreach ($tasks as $key => $val): ?>
-                    <?php if ($val["task_status"]==0 && !$show_complete_task ||
-                $project_id !== "" && $val["project_id"] !== $project_id): continue ?><?php endif; ?>
+                    <?php if ($show_complete_tasks==1 && $val["task_status"]==0 ||
+                    $show_complete_tasks==0 && $val["task_status"]==1 ||
+                $project_id !== "" && $val["project_id"] !== $project_id ): continue ?><?php endif; ?>
                     <?php $res = get_time_left (htmlspecialchars($val["date_finish"]))?>
                     <tr class="tasks__item<?php if ($res[0]<= 24) : ?> task--important <?php endif; ?> ">
                         <td class="task__select  <?php if ($val["task_status"]==true): ?>task--completed"<?php endif; ?>>
                             <label class="checkbox task__checkbox">
-                                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" <?php if ($val["task_status"]==true): ?>checked<?php endif; ?>>
+                                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" <?php if ($val["task_status"]==1): ?>checked<?php endif; ?>>
                                 <span class="checkbox__text "><?=htmlspecialchars($val["task_name"]); ?>"</span>
                             </label>
                         </td>
